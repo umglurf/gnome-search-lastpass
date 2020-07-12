@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=name.haavard.Lastpass.SearchProvider
+Exec=/usr/local/bin/lpass-search-provider.py

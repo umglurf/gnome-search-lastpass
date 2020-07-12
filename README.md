@@ -1,5 +1,5 @@
 # gnome-search-lastpass
-Gnome search provider for copying lastpass entries to clipboard.
+Unofficial gnome search provider for [Lastpass password manager](https://lastpass.com)
 
 This will add a new search allowing you to search for lastpass entries and copy
 username, url, password or note to clipboard.

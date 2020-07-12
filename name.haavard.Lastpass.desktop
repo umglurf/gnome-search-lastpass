@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=Lastpass
+Name=Lastpass Vault
 Icon=lastpass
 Type=Application
 Exec=xdg-open https://lastpass.com/?ac=1&lpnorefresh=1

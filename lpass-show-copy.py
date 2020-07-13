@@ -56,22 +56,29 @@ class LastPassWindow(Gtk.Window):
         box_entries = Gtk.Grid()
         box_main.add(box_entries)
 
+        id_frame = Gtk.Frame(label="ID")
+        box_entries.attach(id_frame, 1, 1, 2, 1)
+        lpass_id = Gtk.Entry()
+        id_frame.add(lpass_id)
+        lpass_id.props.text = entry['id']
+        lpass_id.props.editable = False
+
         url_frame = Gtk.Frame(label="URL")
-        box_entries.attach(url_frame, 1, 1, 2, 1)
+        box_entries.attach(url_frame, 1, 2, 2, 1)
         url = Gtk.Entry()
         url_frame.add(url)
         url.props.text = entry['url']
         url.props.editable = False
 
         username_frame = Gtk.Frame(label="Username")
-        box_entries.attach(username_frame, 1, 2, 1, 1)
+        box_entries.attach(username_frame, 1, 3, 1, 1)
         username = Gtk.Entry()
         username_frame.add(username)
         username.props.text = entry['username']
         username.props.editable = False
 
         password_frame = Gtk.Frame(label="Password")
-        box_entries.attach(password_frame, 2, 2, 1, 1)
+        box_entries.attach(password_frame, 2, 3, 1, 1)
         password = Gtk.Entry()
         password_frame.add(password)
         password.props.text = entry['password']
@@ -80,7 +87,7 @@ class LastPassWindow(Gtk.Window):
         password.props.input_purpose = Gtk.InputPurpose.PASSWORD
 
         note_frame = Gtk.Frame(label="Note")
-        box_entries.attach(note_frame, 1, 3, 2, 1)
+        box_entries.attach(note_frame, 1, 4, 2, 1)
         note = Gtk.TextView()
         note_frame.add(note)
         note.set_wrap_mode(wrap_mode=Gtk.WrapMode.NONE)
@@ -89,6 +96,10 @@ class LastPassWindow(Gtk.Window):
 
         button_box = Gtk.ButtonBox(spacing=6)
         box_main.add(button_box)
+
+        copy_id_button = Gtk.Button.new_with_mnemonic("Copy _id")
+        button_box.add(copy_id_button)
+        copy_id_button.connect("clicked", self.copy, "id")
 
         copy_url_button = Gtk.Button.new_with_mnemonic("Copy ur_l")
         button_box.add(copy_url_button)

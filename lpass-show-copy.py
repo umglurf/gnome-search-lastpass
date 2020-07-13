@@ -90,19 +90,19 @@ class LastPassWindow(Gtk.Window):
         button_box = Gtk.ButtonBox(spacing=6)
         box_main.add(button_box)
 
-        copy_url_button = Gtk.Button.new_with_label("Copy URL")
+        copy_url_button = Gtk.Button.new_with_mnemonic("Copy ur_l")
         button_box.add(copy_url_button)
         copy_url_button.connect("clicked", self.copy, "url")
 
-        copy_username_button = Gtk.Button.new_with_label("Copy username")
+        copy_username_button = Gtk.Button.new_with_mnemonic("Copy _username")
         button_box.add(copy_username_button)
         copy_username_button.connect("clicked", self.copy, "username")
 
-        copy_password_button = Gtk.Button.new_with_label("Copy password")
+        copy_password_button = Gtk.Button.new_with_mnemonic("Copy _password")
         button_box.add(copy_password_button)
         copy_password_button.connect("clicked", self.copy, "password")
 
-        copy_note_button = Gtk.Button.new_with_label("Copy note")
+        copy_note_button = Gtk.Button.new_with_mnemonic("Copy _note")
         button_box.add(copy_note_button)
         copy_note_button.connect("clicked", self.copy, "note")
 

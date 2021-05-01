@@ -61,22 +61,28 @@ class SearchPassService(dbus.service.Object):
     @dbus.service.method(in_signature='as', out_signature='aa{sv}', **sbn)
     def GetResultMetas(self, ids):
         cache = self._get_lastpass_cache()
+
         if self.cache is None:
             return []
         result = []
+
         for id in ids:
             if not id in cache['entries']:
                 continue
             entry = cache['entries'][id]
             elem = dict(id=id, name=cache['entries'][id], gicon="lastpass")
             description = []
+
             if id in cache['urls']:
                 description.append(cache['urls'][id])
+
             if id in cache['usernames']:
                 description.append("User: {}".format(cache['usernames'][id]))
+
             if len(description) > 0:
                 elem['description'] = "\n".join(description)
             result.append(elem)
+
         return result
 
     @dbus.service.method(in_signature='asas', out_signature='as', **sbn)
@@ -89,12 +95,14 @@ class SearchPassService(dbus.service.Object):
 
     def get_result_set(self, terms):
         cache = self._get_lastpass_cache()
+
         if cache is None:
             return []
         name = ''.join(terms)
         entries = [(e[2], e[1], e[0]) for e in process.extract(name, cache['entries'], limit=5, scorer=fuzz.partial_ratio)]
         usernames = [(e[2], e[1], e[0]) for e in process.extract(name, cache['usernames'], limit=5, scorer=fuzz.ratio)]
         urls = [(e[2], e[1], e[0]) for e in process.extract(name, cache['urls'], limit=5, scorer=fuzz.ratio)]
+
         return [e[0] for e in sorted(entries + usernames + urls, key=lambda x: x[1], reverse=True)][0:4]
 
     def _get_lastpass_cache(self):
@@ -105,16 +113,21 @@ class SearchPassService(dbus.service.Object):
         self.cache['usernames'] = {}
         self.cache['urls'] = {}
         result = subprocess.run(['lpass', 'ls', '--format', '%ai;%/as%/ag%an;%au;%al'], encoding='utf-8', timeout=10, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+
         if result.returncode != 0:
             return None
         self.cache['timestamp'] = int(time.time())
+
         for line in result.stdout.split("\n"):
             (id, name, username, url) = line.strip().split(';')
             self.cache['entries'][id] = name
+
             if len(username) > 0:
                 self.cache['usernames'][id] = username
+
             if len(url) > 0 and url != 'http://' and url != 'https://':
                 self.cache['urls'][id] = url
+
         return self.cache
 
 def main():

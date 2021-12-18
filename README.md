@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 Håvard Moen <post@haavard.name>
+
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # gnome-search-lastpass
 Unofficial gnome search provider for [Lastpass password manager](https://lastpass.com)
 
